@@ -1,4 +1,4 @@
--- modern stupid stats strings
+-- modern stupid stats strings (edit by Nonexistent - SAZEXX on git)
  
 -- Как бы настройки
  
@@ -332,3 +332,16 @@ module:RegisterEvent("GUILD_ROSTER_UPDATE")
 module:RegisterEvent("PLAYER_LOGIN")
  
 module:SetScript("OnEvent",function(self,event,...) self[event](self,event,...) end)
+
+function clearGarbage() -- new function
+	UpdateAddOnMemoryUsage()
+	local before = gcinfo()
+	collectgarbage()
+	UpdateAddOnMemoryUsage()
+	local after = gcinfo()
+	print("|c0000ddffCleaned:|r "..memFormat(before-after))
+end
+
+perf:SetScript("OnMouseDown", function()
+	clearGarbage()
+end)
